@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<video id="myVideo" width="320" height="240" controls>
+  <source src="movie.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<script>
+// Get the video element
+var video = document.getElementById('myVideo');
+
+// Variables to store metrics
+var initialDelay = null;
+var bufferingEvents = 0;
+var stallings = 0;
+var loadStartTime = Date.now();
+
+// Event listener for when the video starts playing
+video.addEventListener('playing', function() {
+    if (initialDelay === null) {
+        initialDelay = Date.now() - loadStartTime;
+    }
+});
+
+// Event listener for when the video is waiting for more data
+video.addEventListener('waiting', function() {
+    bufferingEvents++;
+});
+
+// Event listener for when the video stalls
+video.addEventListener('stalled', function() {
+    stallings++;
+});
+
+// Function to get the metrics
+function getMetrics() {
+    return {
+        initialDelay: initialDelay,
+        bufferingEvents: bufferingEvents,
+        stallings: stallings
+    };
+}
+
+// Function to send metrics to your server
+function sendMetrics() {
+    var metrics = getMetrics();
+    // Send metrics to your server here. This could be an AJAX request, for example.
+    console.log(metrics);
+}
+
+// Send metrics every 5 seconds
+setInterval(sendMetrics, 5000);
+</script>
+
+</body>
+</html>

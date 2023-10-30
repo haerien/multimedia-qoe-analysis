@@ -1,0 +1,34 @@
+html{
+    margin: 0px;
+    padding: 0px;
+    background: rgb(44, 51, 51);
+    color: rgb(231, 246, 242);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.content{
+    min-height: 95vh;
+    overflow: hidden;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#myVideo {
+    width: 50%;
+    height: 50%;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font: 12px "Arial", sans-serif;
+    margin-bottom: 10px;
+}
+
+.github-logo{
+    width: 24px;
+    height: 24px;
+}

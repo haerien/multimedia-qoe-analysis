@@ -17,6 +17,9 @@ html{
 #myVideo {
     width: 50%;
     height: 50%;
+    border: 2px solid black;
+    border-radius: 16px;
+    box-shadow: 3px 2px 5px black;
 }
 
 footer{

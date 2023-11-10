@@ -1,5 +1,5 @@
    // Get the video element
-   const video = document.getElementById('myVideo');
+   const video = document.getElementById('video-player');
 
    // Variables to store metrics
    let initialDelay = null;
@@ -25,13 +25,12 @@
    });
 
    // Function to get the metrics
-   // Function to get the metrics
    function getMetrics() {
-       const playbackQuality = video.getVideoPlaybackQuality ? video.getVideoPlaybackQuality() : {};
-       const networkState = video.networkState;
-       const currentTime = video.currentTime;
-       const bufferedTime = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
-
+        const playbackQuality = video.getVideoPlaybackQuality ? video.getVideoPlaybackQuality() : {};
+        const networkState = video.networkState;
+        const currentTime = video.currentTime;
+        const bufferedTime = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
+        const resolution = `${window.screen.width}x${window.screen.height}` 
        return {
            initialDelay: initialDelay,
            bufferingEvents: bufferingEvents,
@@ -40,7 +39,8 @@
            corruptedFrames: playbackQuality.corruptedVideoFrames || 0,
            networkState: networkState,
            currentTime: currentTime,
-           bufferedTime: bufferedTime
+           bufferedTime: bufferedTime,
+           resolution: resolution,
        };
    }
 
@@ -51,9 +51,9 @@
        console.log(metrics);
    }
 
-   $("#myVideo").on("ended", function() {
-       window.location.href = "questions.html"; // replace with your questions page URL
-   });
+    $("#video-player").on("ended", function() {
+        window.location.href = "questions.html";
+    });
 
    // Send metrics every 5 seconds
    setInterval(sendMetrics, 5000);

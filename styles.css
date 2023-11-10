@@ -14,12 +14,19 @@ html{
     justify-content: flex-start;
 }
 
-#myVideo {
+#video-player {
     width: 50%;
-    height: 50%;
+    height: auto;
     border: 2px solid black;
     border-radius: 16px;
     box-shadow: 3px 2px 5px black;
+}
+
+/* This will apply when the screen is 600px or less */
+@media screen and (max-width: 600px) {
+    #video-player {
+        width: 100%; /* On small screens, make the video player take up the full width */
+    }
 }
 
 footer{

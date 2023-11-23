@@ -31,6 +31,7 @@ function getMetrics() {
   const currentTime = video.currentTime;
   const bufferedTime = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
   const resolution = `${window.screen.width}x${window.screen.height}` 
+  const date = new Date();
   return {
     initialDelay: initialDelay,
     bufferingEvents: bufferingEvents,
@@ -41,6 +42,7 @@ function getMetrics() {
     currentTime: currentTime,
     bufferedTime: bufferedTime,
     resolution: resolution,
+    date: `${date.getDate()-(date.getMonth()+1)}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
   };
 }
 
@@ -74,12 +76,10 @@ function sendMetrics() {
 });*/
 
 // Send metrics every 5 seconds while the video is playing
-/*const interval = setInterval(() => {
+const interval = setInterval(() => {
   if (!video.paused && !video.ended) {
     sendMetrics();
   } else {
     clearInterval(interval);
   }
-}, 5000);*/
-
-if(video.ended) sendMetrics();
+}, 5000);

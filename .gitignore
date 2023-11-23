@@ -1,8 +1,8 @@
 //IMG
-*.png
+//*.png
 
 //MP4
-*.mp4
+//*.mp4
 
 //Server file
 server.js

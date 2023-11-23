@@ -1,59 +1,83 @@
-   // Get the video element
-   const video = document.getElementById('video-player');
+// Get the video element
+const video = document.getElementById('video-player');
 
-   // Variables to store metrics
-   let initialDelay = null;
-   let bufferingEvents = 0;
-   let stallings = 0;
-   let loadStartTime = Date.now();
+// Variables to store metrics
+let initialDelay = null;
+let bufferingEvents = 0;
+let stallings = 0;
+let loadStartTime = Date.now();
 
-   // Event listener for when the video starts playing
-   video.addEventListener('playing', function() {
-       if (initialDelay === null) {
-           initialDelay = Date.now() - loadStartTime;
-       }
-   });
+// Event listener for when the video starts playing
+video.addEventListener('playing', function() {
+  if (initialDelay === null) {
+    initialDelay = Date.now() - loadStartTime;
+  }
+});
 
-   // Event listener for when the video is waiting for more data
-   video.addEventListener('waiting', function() {
-       bufferingEvents++;
-   });
+// Event listener for when the video is waiting for more data
+video.addEventListener('waiting', function() {
+  bufferingEvents++;
+});
 
-   // Event listener for when the video stalls
-   video.addEventListener('stalled', function() {
-       stallings++;
-   });
+// Event listener for when the video stalls
+video.addEventListener('stalled', function() {
+  stallings++;
+});
 
-   // Function to get the metrics
-   function getMetrics() {
-        const playbackQuality = video.getVideoPlaybackQuality ? video.getVideoPlaybackQuality() : {};
-        const networkState = video.networkState;
-        const currentTime = video.currentTime;
-        const bufferedTime = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
-        const resolution = `${window.screen.width}x${window.screen.height}` 
-       return {
-           initialDelay: initialDelay,
-           bufferingEvents: bufferingEvents,
-           stallings: stallings,
-           droppedFrames: playbackQuality.droppedVideoFrames || 0,
-           corruptedFrames: playbackQuality.corruptedVideoFrames || 0,
-           networkState: networkState,
-           currentTime: currentTime,
-           bufferedTime: bufferedTime,
-           resolution: resolution,
-       };
-   }
+// Function to get the metrics
+function getMetrics() {
+  const playbackQuality = video.getVideoPlaybackQuality ? video.getVideoPlaybackQuality() : {};
+  const networkState = video.networkState;
+  const currentTime = video.currentTime;
+  const bufferedTime = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
+  const resolution = `${window.screen.width}x${window.screen.height}` 
+  return {
+    initialDelay: initialDelay,
+    bufferingEvents: bufferingEvents,
+    stallings: stallings,
+    droppedFrames: playbackQuality.droppedVideoFrames || 0,
+    corruptedFrames: playbackQuality.corruptedVideoFrames || 0,
+    networkState: networkState,
+    currentTime: currentTime,
+    bufferedTime: bufferedTime,
+    resolution: resolution,
+  };
+}
 
-   // Function to send metrics to your server
-   function sendMetrics() {
-       let metrics = getMetrics();
-       // Send metrics to your server here. This could be an AJAX request, for example.
-       console.log(metrics);
-   }
+// Function to send metrics to your server
+function sendMetrics() {
+  let metrics = getMetrics();
 
-    $("#video-player").on("ended", function() {
-        window.location.href = "questions.html";
-    });
+  // Sending metrics to the server using Fetch API
+  fetch('http://localhost:3000/api/storeQoS', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(metrics),
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Metrics sent successfully!');
+    } else {
+      console.error('Failed to send metrics.');
+    }
+  })
+  .catch(error => {
+    console.error('Error sending metrics:', error);
+  });
+}
 
-   // Send metrics every 5 seconds
-   setInterval(sendMetrics, 5000);
+$("#video-player").on("ended", function() {
+  sendMetrics(); // Sending metrics when the video ends
+  window.location.href = "questions.html"; // Redirect to the survey page
+});
+
+// Send metrics every 5 seconds while the video is playing
+const interval = setInterval(() => {
+  if (!video.paused && !video.ended) {
+    sendMetrics();
+  } else {
+    clearInterval(interval);
+  }
+}, 5000);

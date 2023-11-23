@@ -4,6 +4,7 @@ html{
     background: rgb(44, 51, 51);
     color: rgb(231, 246, 242);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-shadow: 2px 2px black;
 }
 .content{
     min-height: 95vh;

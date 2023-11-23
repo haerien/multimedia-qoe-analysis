@@ -74,10 +74,12 @@ function sendMetrics() {
 });*/
 
 // Send metrics every 5 seconds while the video is playing
-const interval = setInterval(() => {
+/*const interval = setInterval(() => {
   if (!video.paused && !video.ended) {
     sendMetrics();
   } else {
     clearInterval(interval);
   }
-}, 5000);
+}, 5000);*/
+
+if(video.ended) sendMetrics();

@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 // MongoDB Connection
 const mongoURI = 'mongodb://localhost:27017';
-const dbName = 'yourDBName';
+const dbName = 'api';
 let db;
 
 MongoClient.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {

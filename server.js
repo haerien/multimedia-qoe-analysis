@@ -1,8 +1,18 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
+
+app.use(cors());
+const corsOptions = {
+    origin: 'https://haerien.github.io',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+};
+app.use(cors(corsOptions));
+
 const PORT = 3000;
 
 app.use(bodyParser.json());
@@ -14,7 +24,7 @@ let db;
 
 MongoClient.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
   if (err) return console.error(err);
-  
+
   console.log('Connected to MongoDB');
   db = client.db(dbName);
 });

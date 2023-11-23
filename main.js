@@ -68,10 +68,10 @@ function sendMetrics() {
   });
 }
 
-$("#video-player").on("ended", function() {
+/*$("#video-player").on("ended", function() {
   sendMetrics(); // Sending metrics when the video ends
   window.location.href = "questions.html"; // Redirect to the survey page
-});
+});*/
 
 // Send metrics every 5 seconds while the video is playing
 const interval = setInterval(() => {

@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
-        <script src="cities.js" defer></script>
+        <script src="survey.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <title>Kullanıcı anketi</title>
     </head>
 
@@ -21,21 +22,22 @@
         
             <div class="question">
                 <p class = "qHeader">Videoyu izlerken herhangi bir donma problemiyle karşılaştınız mı?</p>
-                <label> <input type="radio" name="question1" value="1"> Çok karşılaştım </label>
-                <label> <input type="radio" name="question1" value="2"> Biraz karşılaştım </label>
-                <label> <input type="radio" name="question1" value="3"> Emin değilim/Nötr </label>
-                <label> <input type="radio" name="question1" value="4"> Pek karşılaşmadım </label>
-                <label> <input type="radio" name="question1" value="5"> Hiç karşılaşmadım </label>
+                <label> <input type="radio" name="question2" value="1"> Çok karşılaştım </label>
+                <label> <input type="radio" name="question2" value="2"> Biraz karşılaştım </label>
+                <label> <input type="radio" name="question2" value="3"> Emin değilim/Nötr </label>
+                <label> <input type="radio" name="question2" value="4"> Pek karşılaşmadım </label>
+                <label> <input type="radio" name="question2" value="5"> Hiç karşılaşmadım </label>
             </div>
 
             <div class="question">
                 <p class = "qHeader">Videoyu izlerken hangi internet servis sağlayıcısını kullandınız?</p>
-                <label> <input type="radio" name="question1" value="turkcell"> Turkcell </label>
-                <label> <input type="radio" name="question1" value="turktelekom"> Türk Telekom </label>
-                <label> <input type="radio" name="question1" value="vodafone"> Vodafone </label>
-                <label> <input type="radio" name="question1" value="other"> Diğer </label>
+                <label> <input type="radio" name="question3" value="turkcell"> Turkcell </label>
+                <label> <input type="radio" name="question3" value="turktelekom"> Türk Telekom </label>
+                <label> <input type="radio" name="question3" value="vodafone"> Vodafone </label>
+                <label> <input type="radio" name="question3" value="other"> Diğer </label>
             </div>
 
             <button type="submit">Submit</button>
-        </body>
+        </form>
+    </body>
 </html>

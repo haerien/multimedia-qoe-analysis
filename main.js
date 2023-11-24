@@ -47,7 +47,7 @@ function getMetrics() {
 }
 
 // Function to send metrics to your server
-function sendMetrics() {
+/*function sendMetrics() {
   let metrics = getMetrics();
 
   // Sending metrics to the server using Fetch API
@@ -68,18 +68,25 @@ function sendMetrics() {
   .catch(error => {
     console.error('Error sending metrics:', error);
   });
-}
+}*/
 
-/*$("#video-player").on("ended", function() {
-  sendMetrics(); // Sending metrics when the video ends
+let qosMetrics;
+
+$("#video-player").on("ended", function() {
+  let qosData = getMetrics(); // Assuming you have a function to retrieve QoS data
+  localStorage.setItem('qosData', JSON.stringify(qosData)); // Storing in localStorage
+
+  //qosMetrics = getMetrics(); // Sending metrics when the video ends
   window.location.href = "questions.html"; // Redirect to the survey page
-});*/
+});
 
 // Send metrics every 5 seconds while the video is playing
-const interval = setInterval(() => {
+/*const interval = setInterval(() => {
   if (!video.paused && !video.ended) {
-    sendMetrics();
+    let qosData = getMetrics(); // Assuming you have a function to retrieve QoS data
+    localStorage.setItem('qosData', JSON.stringify(qosData)); // Storing in localStorage
+    window.location.href = "questions.html"; // Redirect to the survey page
   } else {
     clearInterval(interval);
   }
-}, 5000);
+}, 5000);*/

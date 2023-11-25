@@ -1,4 +1,5 @@
-const form = document.getElementById("surveyForm")
+const form = document.getElementById("surveyForm");
+
 form.addEventListener('submit', function(event) {
   event.preventDefault(); // Prevent default form submission
   // Retrieving QoS data from localStorage
@@ -13,16 +14,17 @@ form.addEventListener('submit', function(event) {
     // Handle case where no QoS data is found
     }
 
-
   const formData = new FormData(form);
   const surveyData = {};
   formData.forEach((value, key) => {
     surveyData[key] = value;
   });
   
+  let date = new Date();
   let combinedData = {
     qos: qosData,
-    survey:surveyData,
+    survey: surveyData,
+    date: `${date.getDate()}-${(date.getMonth()+1)}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,
   }
 
   fetch('http://localhost:3000/api', {
@@ -35,6 +37,7 @@ form.addEventListener('submit', function(event) {
   .then(response => {
     if (response.ok) {
       console.log('Data sent successfully!');
+      window.location.href = "finish.html"; // Redirect to the survey page
       // Optionally, perform actions after successful submission
     } else {
       console.error('Failed to send data.');
@@ -45,5 +48,6 @@ form.addEventListener('submit', function(event) {
     console.error('Error sending data:', error);
     // Handle error case
   });
+  
 });
 

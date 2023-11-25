@@ -42,7 +42,6 @@ function getMetrics() {
     currentTime: currentTime,
     bufferedTime: bufferedTime,
     resolution: resolution,
-    date: `${date.getDate()}-${(date.getMonth()+1)}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
   };
 }
 

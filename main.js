@@ -30,7 +30,7 @@ function getMetrics() {
   const networkState = video.networkState;
   const currentTime = video.currentTime;
   const bufferedTime = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
-  const resolution = `${window.screen.width}x${window.screen.height}` 
+  const resolution = `${window.screen.width}x${window.screen.height}`;
   const date = new Date();
   return {
     initialDelay: initialDelay,

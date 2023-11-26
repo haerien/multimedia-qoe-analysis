@@ -1,8 +1,8 @@
 const form = document.getElementById("surveyForm");
 
 form.addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent default form submission
-  // Retrieving QoS data from localStorage
+    event.preventDefault(); // Prevent default form submission
+    // Retrieving QoS data from localStorage
     let qosMetrics = localStorage.getItem('qosData');
     let qosData;
     
@@ -27,7 +27,7 @@ form.addEventListener('submit', function(event) {
     date: `${date.getDate()}-${(date.getMonth()+1)}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,
   }
 
-  fetch('http://localhost:3000/api', {
+  const response = fetch('http://localhost:3000/api', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -36,18 +36,18 @@ form.addEventListener('submit', function(event) {
   })
   .then(response => {
     if (response.ok) {
-      console.log('Data sent successfully!');
-      window.location.href = "finish.html"; // Redirect to the survey page
-      // Optionally, perform actions after successful submission
+        console.log('Data sent successfully!');
     } else {
-      console.error('Failed to send data.');
-      // Handle failed submission
+        console.error('Failed to send data.');
+        // Handle failed submission
     }
-  })
-  .catch(error => {
-    console.error('Error sending data:', error);
-    // Handle error case
-  });
-  
+   })
+    .catch(error => {
+        console.error('Error sending data:', error);
+        // Handle error case
+    });
+
+    document.getElementById('surveyForm').style.display = 'none';
+    document.getElementById('confirmationMessage').style.display = 'block';
 });
 

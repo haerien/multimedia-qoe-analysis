@@ -1,4 +1,3 @@
-// Get the video element
 const video = document.getElementById('video-player');
 
 // Variables to store metrics
@@ -6,68 +5,67 @@ let initialDelay = null;
 let bufferingEvents = 0;
 let stallings = 0;
 let loadStartTime = Date.now();
+let playingTime = 0; // Variable to store playing time in milliseconds
+let lastPlayTime = 0; // Variable to store the last time the video played
+let totalStallingDuration = 0; // Variable to store total stalling duration in milliseconds
 
 // Event listener for when the video starts playing
-video.addEventListener('playing', function() {
+video.addEventListener('playing', () => {
   if (initialDelay === null) {
     initialDelay = Date.now() - loadStartTime;
+  }
+  if (lastPlayTime === 0) {
+    lastPlayTime = Date.now(); // Update last play time when video starts playing
   }
 });
 
 // Event listener for when the video is waiting for more data
-video.addEventListener('waiting', function() {
+video.addEventListener('waiting', () => {
   bufferingEvents++;
+  if (lastPlayTime !== 0) {
+    totalStallingDuration += Date.now() - lastPlayTime; // Update total stalling duration
+    lastPlayTime = 0; // Reset last play time as we are now stalling
+  }
 });
 
 // Event listener for when the video stalls
-video.addEventListener('stalled', function() {
+video.addEventListener('stalled', () => {
   stallings++;
 });
 
+// Event listener for when the video is paused or ends
+video.addEventListener('pause', updatePlayingTime);
+video.addEventListener('ended', updatePlayingTime);
+
+// Function to update playing time
+function updatePlayingTime() {
+  if (lastPlayTime !== 0) {
+    playingTime += Date.now() - lastPlayTime; // Update playing time
+    lastPlayTime = 0; // Reset last play time
+  }
+}
+
 // Function to get the metrics
 function getMetrics() {
-  const playbackQuality = video.getVideoPlaybackQuality ? video.getVideoPlaybackQuality() : {};
-  const networkState = video.networkState;
-  const currentTime = video.currentTime;
-  const bufferedTime = video.buffered.length > 0 ? video.buffered.end(video.buffered.length - 1) : 0;
-  const resolution = `${window.screen.width}x${window.screen.height}`;
-  const date = new Date();
+  // If the video is still playing, update the playing time
+  if (!video.paused && lastPlayTime !== 0) {
+    updatePlayingTime();
+  }
+
+  const totalDuration = video.duration || 0; // Total duration in seconds
+  const stallingRatio = totalStallingDuration / (playingTime + totalStallingDuration); // Stalling ratio
+
   return {
-    initialDelay: initialDelay,
-    bufferingEvents: bufferingEvents,
-    stallings: stallings,
-    droppedFrames: playbackQuality.droppedVideoFrames || 0,
-    corruptedFrames: playbackQuality.corruptedVideoFrames || 0,
-    networkState: networkState,
-    currentTime: currentTime,
-    bufferedTime: bufferedTime,
-    resolution: resolution,
+    initialDelay,
+    bufferingEvents,
+    stallings,
+    playingTime, // Playing time in milliseconds
+    totalDuration: totalDuration * 1000, // Total duration in milliseconds
+    totalStallingDuration, // Total stalling duration in milliseconds
+    stallingRatio // Stalling ratio (no unit, it's a ratio)
   };
 }
 
-// Function to send metrics to your server
-/*function sendMetrics() {
-  let metrics = getMetrics();
-
-  // Sending metrics to the server using Fetch API
-  fetch('http://localhost:3000/api', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(metrics),
-  })
-  .then(response => {
-    if (response.ok) {
-      console.log('Metrics sent successfully!');
-    } else {
-      console.error('Failed to send metrics.');
-    }
-  })
-  .catch(error => {
-    console.error('Error sending metrics:', error);
-  });
-}*/
 
 let qosMetrics;
 

@@ -1,0 +1,20 @@
+{
+  "name": "multimedia-qoe-analysis",
+  "version": "1.0.0",
+  "description": "* Web page: https://haerien.github.io/multimedia-qoe-analysis/",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haerien/multimedia-qoe-analysis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haerien/multimedia-qoe-analysis/issues"
+  },
+  "homepage": "https://github.com/haerien/multimedia-qoe-analysis#readme"
+}

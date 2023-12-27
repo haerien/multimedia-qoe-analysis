@@ -14,6 +14,9 @@
     "dotenv": "^16.3.1",
     "cors": "^2.8.5"
  },
+ "engines": {
+    "node": "20.10.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haerien/multimedia-qoe-analysis.git"

@@ -2,7 +2,7 @@
   "name": "multimedia-qoe-analysis",
   "version": "1.0.0",
   "description": "* Web page: https://haerien.github.io/multimedia-qoe-analysis/",
-  "main": "main.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

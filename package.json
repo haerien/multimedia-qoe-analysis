@@ -7,6 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12",
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0"
+ },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haerien/multimedia-qoe-analysis.git"

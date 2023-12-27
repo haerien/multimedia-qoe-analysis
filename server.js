@@ -14,7 +14,7 @@ app.use(cors());
 };*/
 //app.use(cors(corsOptions));
 
-const PORT = 3000;
+const PORT = 3000 || process.env.PORT;
 
 app.use(bodyParser.json());
 

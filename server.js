@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 /*const corsOptions = {
     origin: 'https://haerien.github.io',
     methods: ['GET', 'POST'],

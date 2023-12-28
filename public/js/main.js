@@ -74,7 +74,7 @@ $("#video-player").on("ended", function() {
   localStorage.setItem('qosData', JSON.stringify(qosData)); // Storing in localStorage
 
   //qosMetrics = getMetrics(); // Sending metrics when the video ends
-  window.location.href = "questions.html"; // Redirect to the survey page
+  window.location.href = "pages/questions.html"; // Redirect to the survey page
 });
 
 // Send metrics every 5 seconds while the video is playing

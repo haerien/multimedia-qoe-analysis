@@ -5,9 +5,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 
-//app.use(express.json());
-var distDir = "./node_modules/express";
-app.use(express.static(distDir));
+app.use(express.json());
 app.use(cors());
 /*const corsOptions = {
     origin: 'https://haerien.github.io',

@@ -27,7 +27,7 @@ form.addEventListener('submit', function(event) {
     date: `${date.getDate()}-${(date.getMonth()+1)}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,
   }
 
-  const response = fetch('https://powerful-island-81434-af3002721539.herokuapp.com:3000/api', {
+  const response = fetch('https://powerful-island-81434-af3002721539.herokuapp.com/api', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',

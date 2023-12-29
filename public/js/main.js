@@ -74,7 +74,7 @@ $("#video-player").on("ended", function() {
   //localStorage.setItem('qosData', JSON.stringify(qosData)); // Storing in localStorage
 
   document.getElementById('content').style.display = 'none';
-  document.getElementsByClassName('footer').style.display = 'none';
+  document.getElementById('footer').style.display = 'none';
   document.getElementById('survey').style.display = 'block'; // Redirect to the survey page
 });
 

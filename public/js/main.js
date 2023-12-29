@@ -81,17 +81,7 @@ $("#video-player").on("ended", function() {
 const form = document.getElementById("surveyForm");
 
 form.addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-    // Retrieving QoS data from localStorage
-    let qosData;
-    
-    if (qosMetrics) {
-        qosData = JSON.parse(qosMetrics);
-    // Use qosData as needed for survey
-    } else {
-        console.log("Error getting data");
-    // Handle case where no QoS data is found
-    }
+  event.preventDefault(); // Prevent default form submission
 
   const formData = new FormData(form);
   const surveyData = {};
@@ -101,7 +91,7 @@ form.addEventListener('submit', function(event) {
   
   let date = new Date();
   let combinedData = {
-    qos: qosData,
+    qos: qosMetrics,
     survey: surveyData,
     date: `${date.getDate()}-${(date.getMonth()+1)}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,
   }

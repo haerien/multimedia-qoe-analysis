@@ -70,20 +70,61 @@ function getMetrics() {
 let qosMetrics;
 
 $("#video-player").on("ended", function() {
-  let qosData = getMetrics(); // Assuming you have a function to retrieve QoS data
-  localStorage.setItem('qosData', JSON.stringify(qosData)); // Storing in localStorage
+  qosMetrics = getMetrics(); //Store QoS metrics
+  //localStorage.setItem('qosData', JSON.stringify(qosData)); // Storing in localStorage
 
-  //qosMetrics = getMetrics(); // Sending metrics when the video ends
-  window.location.href = "questions.html"; // Redirect to the survey page
+  document.getElementById('content').style.display = 'none';
+  document.getElementById('survey').style.display = 'block'; // Redirect to the survey page
 });
 
-// Send metrics every 5 seconds while the video is playing
-/*const interval = setInterval(() => {
-  if (!video.paused && !video.ended) {
-    let qosData = getMetrics(); // Assuming you have a function to retrieve QoS data
-    localStorage.setItem('qosData', JSON.stringify(qosData)); // Storing in localStorage
-    window.location.href = "questions.html"; // Redirect to the survey page
-  } else {
-    clearInterval(interval);
+const form = document.getElementById("surveyForm");
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    // Retrieving QoS data from localStorage
+    let qosData;
+    
+    if (qosMetrics) {
+        qosData = JSON.parse(qosMetrics);
+    // Use qosData as needed for survey
+    } else {
+        console.log("Error getting data");
+    // Handle case where no QoS data is found
+    }
+
+  const formData = new FormData(form);
+  const surveyData = {};
+  formData.forEach((value, key) => {
+    surveyData[key] = value;
+  });
+  
+  let date = new Date();
+  let combinedData = {
+    qos: qosData,
+    survey: surveyData,
+    date: `${date.getDate()}-${(date.getMonth()+1)}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,
   }
-}, 5000);*/
+
+  const response = fetch('https://powerful-island-81434-af3002721539.herokuapp.com/api', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(combinedData),
+  })
+  .then(response => {
+    if (response.ok) {
+        console.log('Data sent successfully!');
+    } else {
+        console.error('Failed to send data.');
+        // Handle failed submission
+    }
+   })
+    .catch(error => {
+        console.error('Error sending data:', error);
+        // Handle error case
+    });
+
+    document.getElementById('surveyForm').style.display = 'none';
+    document.getElementById('confirmationMessage').style.display = 'block';
+});

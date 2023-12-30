@@ -8,6 +8,7 @@ let loadStartTime = Date.now();
 let playingTime = 0; // Variable to store playing time in milliseconds
 let lastPlayTime = 0; // Variable to store the last time the video played
 let totalStallingDuration = 0; // Variable to store total stalling duration in milliseconds
+let resolution;
 
 // Event listener for when the video starts playing
 video.addEventListener('playing', () => {
@@ -62,7 +63,8 @@ function getMetrics() {
     playingTime, // Playing time in milliseconds
     totalDuration: totalDuration * 1000, // Total duration in milliseconds
     totalStallingDuration, // Total stalling duration in milliseconds
-    stallingRatio // Stalling ratio (no unit, it's a ratio)
+    stallingRatio, // Stalling ratio (no unit, it's a ratio)
+    resolution: screen.width + "x" + screen.length,
   };
 }
 

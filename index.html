@@ -12,7 +12,13 @@
         <div id="content">
             <p><h1 class="header">Multimedya QoE Tespiti</h1></p>
             <p> Lütfen aşağıdaki videoyu sonuna kadar izleyin ve sonrasında çıkacak ankette de video ile alakalı görüşlerinizi bize bildirin.</p>
-            <video id="video-player" width="320" height="240" autoplay muted controls> <source src="videos/movie.mp4" type="video/mp4">
+
+            <video id="video-player" width="320" height="240" autoplay unmuted> 
+                <source src="videos/movie.mp4" type="video/mp4">
+                <source src="videos/movie2.mp4" type="video/mp4">
+                <source src="videos/movie3.mp4" type="video/mp4">
+                <source src="videos/movie4.mp4" type="video/mp4">
+                <source src="videos/movie5.mp4" type="video/mp4">
                 Tarayıcınız video oynatmayı desteklemiyor.
             </video>
         </div>
@@ -74,5 +80,26 @@
             </form>
             <div id="confirmationMessage" style="display: none;">Yanıtınız kaydedildi.</div>
         </div>
+
+        <script>
+            // List of video sources
+            const videos = [
+              'movie.mp4',
+              'movie2.mp4',
+              'movie3.mp4',
+              'movie4.mp4',
+              'movie5.mp4'
+            ];
+        
+            // Get a random index to select a video
+            const randomIndex = Math.floor(Math.random() * videos.length);
+        
+            // Get the video element
+            const videoElement = document.getElementById('video-player');
+        
+            // Set the source of the video element to the randomly selected video
+            videoElement.src = videos[randomIndex];
+            videoElement.load(); // Load the new video source
+          </script>
     </body>
 </html>

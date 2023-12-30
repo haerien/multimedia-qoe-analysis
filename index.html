@@ -22,7 +22,6 @@
                 <source src="videos/movie5.mp4" type="video/mp4">
                 Tarayıcınız video oynatmayı desteklemiyor.
             </video>
-            <script>document.getElementById("video-player").play()</script>
         </div>
 
         <div id="survey" style="display: none;">
@@ -61,23 +60,23 @@
                     <label> <input type="radio" name="question4" value="vodafone"> Vodafone </label>
                     <label> <input type="radio" name="question4" value="other"> Diğer </label>
                 </div>
+                
+                <div class="question">
+                    <p class = "qHeader">Videoyu izlerken kullandığınız internet bağlantısının türü neydi?</p>
+                    <label> <input type="radio" name="question5" value="mobile"> Mobil veri </label>
+                    <label> <input type="radio" name="question5" value="wifi"> WiFi </label>
+                    <label> <input type="radio" name="question5" value="wired"> Kablolu bağlantı </label>
+                </div>
 
                 <div class="question">
                     <p class = "qHeader">Videoyu izlerken sinyal seviyeniz nasıldı?</p>
-                    <label> <input type="radio" name="question5" value="1"> 1 </label>
-                    <label> <input type="radio" name="question5" value="2"> 2 </label>
-                    <label> <input type="radio" name="question5" value="3"> 3 </label>
-                    <label> <input type="radio" name="question5" value="4"> 4 </label>
-                    <label> <input type="radio" name="question5" value="5"> 5 </label>
+                    <label> <input type="radio" name="question6" value="1"> 1 </label>
+                    <label> <input type="radio" name="question6" value="2"> 2 </label>
+                    <label> <input type="radio" name="question6" value="3"> 3 </label>
+                    <label> <input type="radio" name="question6" value="4"> 4 </label>
+                    <label> <input type="radio" name="question6" value="5"> 5/Kablolu </label>
                 </div>
-
-                <div class="question">
-                    <p class = "qHeader">Videoyu izlerken kullandığınız internet bağlantısının türü neydi?</p>
-                    <label> <input type="radio" name="question6" value="mobile"> Mobil veri </label>
-                    <label> <input type="radio" name="question6" value="wifi"> WiFi </label>
-                    <label> <input type="radio" name="question6" value="wired"> Kablolu bağlantı </label>
-                </div>
-    
+                
                 <button type="submit">Kaydet</button>
             </form>
             <div id="confirmationMessage" style="display: none;">Yanıtınız kaydedildi.</div>

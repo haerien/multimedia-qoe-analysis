@@ -21,6 +21,7 @@ html{
     border: 2px solid black;
     border-radius: 16px;
     box-shadow: 3px 2px 5px black;
+    text-shadow: none;
 }
 
 /* This will apply when the screen is 600px or less */

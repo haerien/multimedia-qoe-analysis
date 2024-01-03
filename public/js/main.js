@@ -64,7 +64,7 @@ function getMetrics() {
     totalDuration: totalDuration * 1000, // Total duration in milliseconds
     totalStallingDuration, // Total stalling duration in milliseconds
     stallingRatio, // Stalling ratio (no unit, it's a ratio)
-    resolution: screen.width + "x" + screen.length,
+    resolution: screen.width + "x" + screen.height,
   };
 }
 

@@ -6,9 +6,9 @@ let bufferingEvents = 0;
 let stallings = 0;
 let loadStartTime = Date.now();
 let playingTime = 0; // Variable to store playing time in milliseconds
-let lastStallingTime = 0;
+let lastBufferingTime = 0;
 let lastPlayTime = 0; // Variable to store the last time the video played
-let totalStallingDuration = 0; // Variable to store total stalling duration in milliseconds
+let totalBufferingDuration = 0; // Variable to store total stalling duration in milliseconds
 let resolution;
 
 // Event listener for when the video starts playing
@@ -16,9 +16,9 @@ video.addEventListener('playing', () => {
   if (initialDelay === null) {
     initialDelay = Date.now() - loadStartTime;
   }
-  if(lastStallingTime !== 0){
-    totalStallingDuration += Date.now() - lastStallingTime;
-    lastStallingTime = 0;
+  if(lastBufferingTime !== 0){
+    totalBufferingDuration += Date.now() - lastBufferingTime;
+    lastBufferingTime = 0;
   }
   if (lastPlayTime === 0) {
     lastPlayTime = Date.now(); // Update last play time when video starts playing
@@ -28,11 +28,7 @@ video.addEventListener('playing', () => {
 // Event listener for when the video is waiting for more data
 video.addEventListener('waiting', () => {
   bufferingEvents++;
-  lastStallingTime = Date.now();
-  /*if (lastPlayTime !== 0) {
-    totalStallingDuration += Date.now() - lastPlayTime; // Update total stalling duration
-    lastPlayTime = 0; // Reset last play time as we are now stalling
-  }*/
+  lastBufferingTime = Date.now();
 });
 
 // Event listener for when the video stalls
@@ -60,7 +56,7 @@ function getMetrics() {
   }
 
   const totalDuration = video.duration || 0; // Total duration in seconds
-  const stallingRatio = totalStallingDuration / playingTime; // Stalling ratio
+  const stallingRatio = totalBufferingDuration / playingTime; // Stalling ratio
 
   return {
     initialDelay,
@@ -68,9 +64,9 @@ function getMetrics() {
     stallings,
     playingTime, // Playing time in milliseconds
     lastPlayTime,
-    lastStallingTime,
+    lastBufferingTime,
     totalDuration: totalDuration * 1000, // Total duration in milliseconds
-    totalStallingDuration, // Total stalling duration in milliseconds
+    totalBufferingDuration, // Total stalling duration in milliseconds
     stallingRatio, // Stalling ratio (no unit, it's a ratio)
     resolution: screen.width + "x" + screen.height,
   };
@@ -81,7 +77,6 @@ let qosMetrics;
 
 $("#video-player").on("ended", function() {
   qosMetrics = getMetrics(); //Store QoS metrics
-  //localStorage.setItem('qosData', JSON.stringify(qosData)); // Storing in localStorage
 
   document.getElementById('content').style.display = 'none';
   document.getElementById('survey').style.display = 'block'; // Redirect to the survey page

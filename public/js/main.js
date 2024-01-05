@@ -6,6 +6,7 @@ let bufferingEvents = 0;
 let stallings = 0;
 let loadStartTime = Date.now();
 let playingTime = 0; // Variable to store playing time in milliseconds
+let lastStallingTime = 0;
 let lastPlayTime = 0; // Variable to store the last time the video played
 let totalStallingDuration = 0; // Variable to store total stalling duration in milliseconds
 let resolution;
@@ -15,6 +16,10 @@ video.addEventListener('playing', () => {
   if (initialDelay === null) {
     initialDelay = Date.now() - loadStartTime;
   }
+  if(lastStallingTime !== 0){
+    totalStallingDuration += Date.now() - lastStallingTime;
+    lastStallingTime = 0;
+  }
   if (lastPlayTime === 0) {
     lastPlayTime = Date.now(); // Update last play time when video starts playing
   }
@@ -23,10 +28,11 @@ video.addEventListener('playing', () => {
 // Event listener for when the video is waiting for more data
 video.addEventListener('waiting', () => {
   bufferingEvents++;
-  if (lastPlayTime !== 0) {
+  lastStallingTime = Date.now();
+  /*if (lastPlayTime !== 0) {
     totalStallingDuration += Date.now() - lastPlayTime; // Update total stalling duration
     lastPlayTime = 0; // Reset last play time as we are now stalling
-  }
+  }*/
 });
 
 // Event listener for when the video stalls
@@ -61,6 +67,8 @@ function getMetrics() {
     bufferingEvents,
     stallings,
     playingTime, // Playing time in milliseconds
+    lastPlayTime,
+    lastStallingTime,
     totalDuration: totalDuration * 1000, // Total duration in milliseconds
     totalStallingDuration, // Total stalling duration in milliseconds
     stallingRatio, // Stalling ratio (no unit, it's a ratio)

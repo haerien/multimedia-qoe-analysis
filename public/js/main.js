@@ -60,7 +60,7 @@ function getMetrics() {
   }
 
   const totalDuration = video.duration || 0; // Total duration in seconds
-  const stallingRatio = totalStallingDuration / (playingTime + totalStallingDuration); // Stalling ratio
+  const stallingRatio = totalStallingDuration / playingTime; // Stalling ratio
 
   return {
     initialDelay,

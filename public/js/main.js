@@ -93,10 +93,11 @@ form.addEventListener('submit', function(event) {
     surveyData[key] = value;
   });
   
+  let data = qosMetrics.concat(surveyData);
+
   let date = new Date();
   let combinedData = {
-    qosMetrics,
-    surveyData,
+    data,
     date: `${date.getDate()}-${(date.getMonth()+1)}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,
   }
 

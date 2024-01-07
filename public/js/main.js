@@ -95,8 +95,8 @@ form.addEventListener('submit', function(event) {
   
   let date = new Date();
   let combinedData = {
-    qos: qosMetrics,
-    survey: surveyData,
+    qosMetrics,
+    surveyData,
     date: `${date.getDate()}-${(date.getMonth()+1)}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`,
   }
 
